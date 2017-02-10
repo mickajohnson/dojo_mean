@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Edit A COW</title>
+  </head>
+  <body>
+    <h1>Edit Cow</h1>
+    <a href="/">Home</a>
+    <form action="/cows/<%=cow.name%>" method="post">
+      <label for="name">
+        Name: <input type="text" name="name" value="<%=cow.name%>">
+      </label>
+      <label for="age">
+        Age: <input type="text" name="age" value="<%=cow.age%>">
+      </label>
+      <label for="type">
+        Type:<input type="text" name="type" value="<%=cow.type%>">
+      </label>
+      <legend>Living?</legend>
+      <label for="living">
+        Yes<input type="radio" name="living" value="true"
+          <% if (cow.living == true) {%>
+            checked="checked"
+          <% } %>
+        >
+      </label>
+      <label for="living">
+        No<input type="radio" name="living" value="false"
+        <% if (cow.living == false) {%>
+          checked="checked"
+        <% } %>
+        >
+      </label>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

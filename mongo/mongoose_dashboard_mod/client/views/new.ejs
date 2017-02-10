@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>New Cow</title>
+  </head>
+  <body>
+    <h1>Add a Cow</h1>
+    <a href="/">Home</a>
+    <form action="/cows" method="post">
+      <label for="name">
+        Name: <input type="text" name="name">
+      </label>
+      <label for="age">
+        Age: <input type="text" name="age">
+      </label>
+      <label for="type">
+        Type:<input type="text" name="type">
+      </label>
+      <legend>Living?</legend>
+      <label for="living">
+        Yes<input type="radio" name="living" value="true">
+      </label>
+      <label for="living">
+        No<input type="radio" name="living" value="false">
+      </label>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

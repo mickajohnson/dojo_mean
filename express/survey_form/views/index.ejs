@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Survey Form</title>
+  </head>
+  <body>
+    <h1>Survey Time!</h1>
+    <form action="/result" method="post">
+      <label>
+        Your Name: <input type="text" name="name">
+      </label>
+      <label>Dojo Location:
+        <select name="location">
+          <% for (var x in locations) { %>
+            <option value="<%= locations[x] %>"><%= locations[x] %></option>
+          <% } %>
+        </select>
+      </label>
+      <label>Favorite Language:
+        <select name="language">
+          <% for (var x in languages) { %>
+            <option value="<%= languages[x] %>"><%= languages[x] %></option>
+          <% } %>
+        </select>
+      </label>
+      <label>
+        Comment: <textarea rows="4" name="comment" value="{{session['comment']}}"></textarea>
+      </label>
+      <input type="submit" name="" value="Submit">
+    </form>
+  </body>
+</html>

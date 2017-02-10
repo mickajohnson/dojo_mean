@@ -1,0 +1,10 @@
+{
+  "users": [
+    {"name":"Mick", "id":1},
+    {"name":"Curtis", "id":2}
+  ],
+  "posts": [
+    {"post":"Blah blah blah", "id":1},
+    {"post":"The capital of butterscotch", "id":2}
+  ]
+}

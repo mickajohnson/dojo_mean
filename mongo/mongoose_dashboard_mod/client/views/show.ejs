@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A Cow</title>
+  </head>
+  <body>
+    <a href="/">Home</a>
+    <h1>Name: <%= cow.name %></h1>
+    <p>Age: <%= cow.age %></p>
+    <p>Type: <%= cow.type %></p>
+    <p>Living? <%= cow.living %></p>
+    <a href="/cows/edit/<%=cow.name%>">Edit</a>
+    <form action="/cows/destroy/<%=cow.name%>" method="post">
+      <input type="submit" value="DESTROY">
+    </form>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "content_module",
+  "version": "1.0.0",
+  "description": "module for serving static files",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mick Johnson",
+  "license": "ISC"
+}
