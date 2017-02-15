@@ -1,0 +1,104 @@
+h1 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+#board{
+  border: 2px solid black;
+  width: 100%;
+  margin: 0 auto;
+  overflow: scroll;
+  height: 10em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+#name {
+  display: inline-block;
+  vertical-align: top;
+  width: 15%;
+}
+#messages {
+  display: inline-block;
+  vertical-align: top;
+  width: 80%;
+}
+#message {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#main div#world {
+  position: relative;
+}
+
+#main {
+  background-color: black;
+  margin: 0px;
+  width: 580px;
+}
+
+#main div.row {
+  height: 20px;
+}
+
+#main div.row div {
+  width: 20px;
+  height: 20px;
+  display: inline-block;;
+}
+#main div.brick {
+  background-color: blue;
+}
+#main div.coin {
+  background: url("coin.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#main div.strawberry {
+  background: url("Pacman-strawberry.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display:
+}
+
+#main div#pacman {
+  background: url('pacman_right.gif');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+
+}
+
+#main div#ghost {
+  background: url('ghost.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  display: none;
+}
+
+#main div.empty {
+}
+
+#main div#scores {
+  border: 1px solid black;
+  width: 100px;
+  height: 80px;
+  color: black;
+  padding: 0px;
+  text-align: center;
+  position: absolute;
+  top:85px;
+  left:600px;
+}

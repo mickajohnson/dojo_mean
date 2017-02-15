@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Custom Users</title>
+    <script src="angular/angular.js"></script>
+    <script src="angular-route/angular-route.js"></script>
+    <script type="text/javascript">
+      var app = angular.module('app', ["ngRoute"]);
+      app.config(function($routeProvider){
+        $routeProvider
+        .when('/', {
+          templateUrl: 'partials/userList.html',
+          controller: "UserListsController"
+        })
+        .when('/customize', {
+          templateUrl: 'partials/customizeUsers.html',
+          controller: 'CustomizeUsersController'
+        })
+        .otherwise({
+          redirectTo: '/'
+        })
+      });
+      app.factory("userFactory", function(){
+        var factory = {};
+        var users = [{firstName:"Mick", lastName:"Johnson", favoriteLanguage:"Python"}, {firstName:"Curtis", lastName:"Wulfsohn", favoriteLanguage:"Ruby"}];
+        factory.index = function(callback){
+          callback(users)
+        }
+        factory.create = function(user, callback){
+          users.push(user)
+          callback(users);
+        }
+        factory.delete = function(index, callback){
+          users.splice(index, 1);
+          callback(users)
+        }
+        factory.show = function(){
+
+        }
+        return factory;
+      });
+      app.controller("CustomizeUsersController", ['$scope', 'userFactory', "$location", function($scope, userFactory, $location){
+        function getUsers(data){
+          $scope.users = data;
+          $scope.user = {}
+        }
+        $scope.index = function(){
+          userFactory.index(getUsers);
+        }
+        $scope.index();
+        $scope.createUser = function(){
+          userFactory.create($scope.user, getUsers)
+          $location.url('/');
+        }
+        $scope.deleteUser = function(index){
+          userFactory.delete(index, getUsers)
+        }
+      }]);
+      app.controller("UserListsController", ["$scope", 'userFactory', function($scope, userFactory){
+        function getUsers(data){
+          $scope.users = data;
+        }
+        $scope.index = function(){
+          userFactory.index(getUsers);
+        }
+        $scope.index();
+      }]);
+    </script>
+  </head>
+  <body>
+    <h3><a href="#!/">User List</a></h3>
+    <h3><a href="#!/customize">Customize Users</a></h3>
+    <div ng-view="">
+
+    </div>
+  </body>
+</html>

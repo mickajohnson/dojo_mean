@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chatroom</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/jquery/dist/jquery.js" type="text/javascript"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      var socket = io.connect();
+      var name = prompt("What is your name");
+      socket.emit("got_new_user", {name:name});
+      socket.on("show_users", function(data){
+        for (var i = 0; i < data.users.length; i++){
+          var html = "<div class='person' id='" + data.users[i].id + "'><h4>" + data.users[i].name + "</h4>";
+          $("#people").append(html);
+
+        };
+      });
+      socket.on("new_user", function(data){
+        var html = "<div class='person' id='" + data.id + "'><h4>" + data.name + "</h4>";
+        $("#people").append(html);
+
+      });
+      socket.on("hide_user", function(data){
+        var id = "#" + data.id;
+        $(id).fadeOut();
+      })
+    });
+
+    </script>
+  </head>
+  <body>
+    <h1>Group Chat</h1>
+    <div id="people"></div>
+  </body>
+</html>

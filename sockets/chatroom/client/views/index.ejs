@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chatroom</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/jquery/dist/jquery.js" type="text/javascript"></script>
+    <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+      var socket = io.connect();
+      var name = prompt("Name PLZ");
+      socket.emit("got_new_user", {name:name});
+      socket.on("show_messages", function(data){
+        for (var i = 0; i < data.messages.length; i++){
+          $("#name").append("<p class='bold'>" + data.messages[i].name  + ":</p>")
+          $("#messages").append("<p>" + data.messages[i].message + "</p>")
+        }
+      });
+      socket.on("new_user", function(data){
+        $("#name").append("<p></p>")
+        $("#messages").append("<p>" + data.name + " joined the board</p>");
+      });
+      socket.on("user_disconnect", function(data){
+        $("#name").append("<p></p>")
+        $("#messages").append("<p>" + data.name + " left the board</p>");
+      });
+      $("#send").click(function(){
+        socket.emit("got_new_message", {message: $("#message").val()});
+      });
+      socket.on("new_message", function(data){
+        $("#name").append("<p class='bold'>" + data.message.name  + ":</p>");
+        $("#messages").append("<p>" + data.message.message + "</p>")
+      })
+      $(document).scrollTop($(document).height() + 500);
+    });
+
+    </script>
+  </head>
+  <body>
+    <h1>Conversation Board</h1>
+    <div id="board"><div id="name"></div><div id="messages">
+
+    </div></div>
+    <textarea id="message" type="text" name="message"></textarea>
+    <button id="send" type="button" name="button">Send</button>
+  </body>
+</html>

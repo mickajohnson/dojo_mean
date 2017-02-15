@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Players and Teams</title>
+    <script src="angular/angular.js" charset="utf-8"></script>
+    <script src="angular-route/angular-route.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var app = angular.module("app", ["ngRoute"]);
+      app.config(function ($routeProvider){
+        $routeProvider
+        .when('/', {
+          templateUrl: "partials/players.html",
+          controller: "PlayersController"
+        })
+        .when('/teams', {
+          templateUrl: "partials/teams.html",
+          controller: "TeamsController"
+        })
+        .when('/associations', {
+          templateUrl: "partials/associations.html",
+          controller: "AssociationsController"
+        })
+        .otherwise({
+          redirectTo:'/'
+        })
+      })
+      app.factory("playerFactory", function(){
+        var factory = {}
+        var players = [{name:"Good Player"},{name:"Great Player"},{name:"Average Player"}]
+        var associations = [{player:{name:"Good Player"}, team:{name:"Good Team"}}];
+        factory.index = function(callback){
+          callback(players)
+        }
+        factory.create = function(player, callback){
+          players.push(player);
+          callback(players)
+        }
+        factory.remove = function(index, callback){
+          players.splice(index, 1);
+          callback(players)
+        }
+        factory.associationIndex = function(callback){
+          callback(associations);
+        }
+        factory.addAssociation = function(association, callback){
+          associations.push(association);
+          callback(associations);
+        }
+        factory.deleteAssociation = function(index, callback){
+          associations.splice(index, 1);
+          callback(associations);
+        }
+        return factory;
+      })
+      app.factory("teamFactory", function(){
+        var factory = {}
+        var teams = [{name:"Good Team"},{name:"Great Team"},{name:"Average Team"}]
+        factory.index = function(callback){
+          callback(teams)
+        }
+        factory.create = function(team, callback){
+          teams.push(team);
+          callback(teams)
+        }
+        factory.remove = function(index, callback){
+          teams.splice(index, 1);
+          callback(teams)
+        }
+        return factory;
+      })
+      app.controller("PlayersController", ["$scope", "playerFactory", function($scope, playerFactory){
+        function getPlayers(data){
+          $scope.players = data;
+          $scope.player = {};
+        }
+        $scope.index = function(){
+          playerFactory.index(getPlayers)
+        }
+        $scope.index();
+        $scope.addPlayer = function(){
+          playerFactory.create($scope.player, getPlayers);
+        }
+        $scope.removePlayer = function($index){
+          playerFactory.remove($index, getPlayers)
+        }
+      }]);
+      app.controller("TeamsController", ["$scope", "teamFactory", function($scope, teamFactory){
+        function getTeams(data){
+          $scope.teams = data;
+          $scope.team = {};
+        }
+        $scope.index = function(){
+          teamFactory.index(getTeams)
+        }
+        $scope.index();
+        $scope.addTeam = function(){
+          teamFactory.create($scope.team, getTeams);
+        }
+        $scope.removeTeam = function($index){
+          teamFactory.remove($index, getTeams)
+        }
+      }]);
+      app.controller("AssociationsController", ["$scope", "teamFactory", "playerFactory", function($scope, teamFactory, playerFactory){
+        function getPlayers(data){
+          $scope.players = data;
+        }
+        function getTeams(data){
+          $scope.teams = data;
+        }
+        function getAssociations(data){
+          $scope.associations = data;
+        }
+        $scope.index = function(){
+          playerFactory.index(getPlayers);
+          teamFactory.index(getTeams);
+          playerFactory.associationIndex(getAssociations);
+        }
+        $scope.index();
+        $scope.addAssociation = function(){
+          playerFactory.addAssociation($scope.association, getAssociations)
+        }
+        $scope.deleteAssociation = function(index){
+          playerFactory.deleteAssociation(index, getAssociations)
+        }
+      }]);
+
+    </script>
+  </head>
+  <body>
+      <h3><a href="#!/">Players</a></h3>
+      <h3><a href="#!/teams">Teams</a></h3>
+      <h3><a href="#!/associations">Associations</a></h3>
+      <div ng-view></div>
+  </body>
+</html>

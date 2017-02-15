@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Controlling Users</title>
+    <script src="bower_components/angular/angular.js" charset="utf-8" type="text/javascript"></script>
+    <script type="text/javascript">
+      var app = angular.module("app",[]);
+
+      app.controller("userController", function($scope, $timeout){
+        $scope.users = [];
+        $scope.createUser = function(){
+          $scope.users.push($scope.user)
+          $scope.user = {};
+        };
+        $scope.deleteUser = function(index){
+          $scope.users.splice(index, 1)
+        };
+        $scope.reverse = true;
+        $scope.sortBy = function(propertyName) {
+          $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+          $scope.propertyName = propertyName;
+        };
+      });
+    </script>
+  </head>
+  <body>
+    <div ng-controller="userController">
+      <form>
+        <label>
+          First Name: <input type="text" ng-model="user.firstName">
+        </label>
+        <label>
+          Last Name: <input type="text" ng-model="user.lastName">
+        </label>
+        <label>
+          Favorite Language: <input type="text" ng-model="user.favoriteLanguage">
+        </label>
+        <label>
+          Birthday: <input type="date" ng-model="user.birthday">
+        </label>
+          <input type="submit" value="Create User" ng-click="createUser()">
+      </form>
+      <label>Search<input type="text" ng-model="searchText"></label>
+      <table>
+        <thead>
+          <tr>
+            <th><button type="button" ng-click="sortBy('firstName')">First Name</button></th>
+            <th><button type="button" ng-click="sortBy('lastName')">Last Name</button></th>
+            <th><button type="button" ng-click="sortBy('favoriteLanguage')">Favorite Language</button></th>
+            <th><button type="button" ng-click="sortBy('birthday')">Birthday</button></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="userObj in users | filter:searchText | orderBy:propertyName:reverse">
+              <td>{{userObj.firstName}}</td>
+              <td>{{userObj.lastName}}</td>
+              <td>{{userObj.favoriteLanguage}}</td>
+              <td>{{userObj.birthday | date: "dd/MM/yyyy" }}</td>
+              <td><button type="button" name="button" ng-click="deleteUser($index)">Delete User</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
