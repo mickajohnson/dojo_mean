@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <script src="angular/angular.js" charset="utf-8"></script>
+    <script src="angular-route/angular-route.js" charset="utf-8"></script>
+    <script src="angular-cookies/angular-cookies.js" charset="utf-8"></script>
+    <script src="assets/config.js" charset="utf-8"></script>
+    <script src="assets/factories/storeFactory.js" charset="utf-8"></script>
+    <script src="assets/controllers/storeController.js" charset="utf-8"></script>
+    <script src="assets/controllers/customerController.js" charset="utf-8"></script>
+    <script src="assets/controllers/orderController.js" charset="utf-8"></script>
+    <script src="assets/controllers/productController.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.js" charset="utf-8"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="container">
+      <a id="dashboard" href="/#!/">Dashboard</a> | <a id="products" href="/#!/products">Products</a> | <a id="orders" href="/#!/orders">Orders</a> | <a id="customers" href="/#!/customers">Customers</a>
+      <div ng-view=""></div>
+    </div>
+  </body>
+</html>

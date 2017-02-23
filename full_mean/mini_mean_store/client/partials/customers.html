@@ -1,0 +1,36 @@
+<style>
+  #customers{
+    text-decoration: none;
+    color: black;
+  }
+</style>
+<h1 class="text-center">Add a new customer</h1>
+<form ng-submit="addCustomer()">
+  <label>
+    Customer Name: <input type='text' ng-model="customer.name">
+  </label>
+  <input type='submit' value='Add'>
+</form>
+<p ng-if="error">{{error}}</p>
+<hr>
+<label>
+  Search Name <input ng-model="search.name">
+</label>
+
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Created Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="customer in customers | filter:search | orderBy: '-createdAt'">
+      <td>{{customer.name}}</td>
+      <td>{{customer.createdAt | date}}</td>
+      <td><button class="btn btn-danger" ng-click="removeCustomer(customer._id)">Remove</button></td>
+    </tr>
+  </tbody>
+</table>

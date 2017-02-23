@@ -1,0 +1,33 @@
+<style>
+  #dashboard{
+    text-decoration: none;
+    color: black;
+  }
+    .images{
+      width: 100%;
+      height: 125px;
+  }
+    .product{
+      width: 19%;
+      height: 200px;
+      display: inline-block;
+      vertical-align: top;
+      margin: 1px;
+  }
+</style>
+<div class="product" ng-repeat="product in products | limitTo:5 | orderBy: '-createdAt'">
+  <img class="images" src="{{product.image}}">
+  <p class='text-center'>{{product.name}}</p>
+  <p class='text-center'>({{product.quantity}} left)</p>
+</div>
+<a href="/#!/products">Show more...</a>
+<h3>Recent Orders</h3>
+<div class="order" ng-repeat="order in orders | limitTo: 3 | orderBy: '-createdAt'">
+  <p>{{order._customer.name}} purchased {{order.quantity}} {{order._product.name}} on {{order.createdAt | date}}</p>
+</div>
+<a href="/#!/orders">show all orders...</a>
+<h3>New Customers</h3>
+<div class="customer" ng-repeat="customer in customers | limitTo: 3 | orderBy: '-createdAt'">
+  <p>{{customer.name}} joined the store on {{customer.createdAt | date}}</p>
+</div>
+<a href="/#!/customers">show all customers...</a>
